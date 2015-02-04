@@ -17,6 +17,6 @@ namespace WMoney.Persistence.Model
         [StringLength(20)]
         public string Password { get; set; }
 
-        //public 
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }
