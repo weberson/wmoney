@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMoney.Persistence", "Persistence\WMoney.Persistence\WMoney.Persistence.csproj", "{0F47B22E-4813-4305-8F2C-CF15537FFA1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMoney.Persistence.EntityFramework", "Persistence\WMoney.Persistence.EntityFramework\WMoney.Persistence.EntityFramework.csproj", "{46DBDFD3-FCC9-4760-ACE5-A938F66684D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +25,16 @@ Global
 		{0F47B22E-4813-4305-8F2C-CF15537FFA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F47B22E-4813-4305-8F2C-CF15537FFA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F47B22E-4813-4305-8F2C-CF15537FFA1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DBDFD3-FCC9-4760-ACE5-A938F66684D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DBDFD3-FCC9-4760-ACE5-A938F66684D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DBDFD3-FCC9-4760-ACE5-A938F66684D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DBDFD3-FCC9-4760-ACE5-A938F66684D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0F47B22E-4813-4305-8F2C-CF15537FFA1F} = {E507B242-092C-48DE-9CB4-822084B413FE}
+		{46DBDFD3-FCC9-4760-ACE5-A938F66684D1} = {E507B242-092C-48DE-9CB4-822084B413FE}
 	EndGlobalSection
 EndGlobal
