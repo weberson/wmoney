@@ -10,12 +10,7 @@ namespace WMoney.Persistence.EntityFramework
 {
     public class WMoneyContext : DbContext
     {
-        public WMoneyContext()
-            : base()
-        { 
         
-        }
-
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
