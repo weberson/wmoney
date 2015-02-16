@@ -11,15 +11,21 @@ namespace WMoney.Persistence.EntityFramework
     public class WMoneyContext : DbContext
     {
         public WMoneyContext()
-            : base()
+            : base("WMoneyConnectionString")
             {
             
             }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }
