@@ -7,13 +7,13 @@ namespace WMoney.Persistence.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class StartDatabase : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(StartDatabase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502160155385_StartDatabase"; }
+            get { return "201502281634064_Init"; }
         }
         
         string IMigrationMetadata.Source
