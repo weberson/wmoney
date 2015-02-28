@@ -13,5 +13,7 @@ namespace WMoney.Persistence.Model
 
         [StringLength(50)]
         public string Name { get; set; }
+
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }
