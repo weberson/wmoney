@@ -161,6 +161,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +227,10 @@
     <ProjectReference Include="..\Persistence\WMoney.Persistence\WMoney.Persistence.csproj">
       <Project>{0f47b22e-4813-4305-8f2c-cf15537ffa1f}</Project>
       <Name>WMoney.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMoney.Core\WMoney.Core.csproj">
+      <Project>{8b5a4494-19cd-4d5a-b378-906a87cc008d}</Project>
+      <Name>WMoney.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
