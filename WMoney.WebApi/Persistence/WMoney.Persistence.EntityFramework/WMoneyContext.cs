@@ -77,5 +77,7 @@ namespace WMoney.Persistence.EntityFramework
                 .Map(a => a.ToTable("TbUser", "dbo"));
         }
 
+
+
     }
 }

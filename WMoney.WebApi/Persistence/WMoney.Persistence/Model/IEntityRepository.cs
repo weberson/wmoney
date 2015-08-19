@@ -18,43 +18,72 @@ namespace WMoney.Persistence.Model
         void Detach(TEntity entity);
 
         /// <summary>
-        /// Adiciona uma entitade ao repositorio
+        /// Add an entity to repository.
         /// </summary>
-        /// <param name="entity">Entidade que se deseja associar ao repositorio</param>
-        /// <param name="isNew">Indica se a entidade é nova ou é um valor ja existente</param>
+        /// <param name="entity">Entity to add to repository.</param>
+        /// <param name="isNew">Indicates if the entity is new or already exists.</param>
         void Add(TEntity entity, bool isNew);
 
         /// <summary>
-        /// Remove uma nova instância de TEntity
+        /// Add an entity to repository asynchronously.
         /// </summary>
-        /// <param name="entity">Entidade que se deseja apagar do repositorio</param>
+        /// <param name="entity">Entity to add to repository.</param>
+        /// <param name="isNew">Indicates if the entity is new or already exists.</param>
+        Task<TEntity> AddAsync(TEntity entity, bool isNew);
+
+        /// <summary>
+        /// Deletes an instance of TEntity.
+        /// </summary>
+        /// <param name="entity">Entity to delete from repository.</param>
         /// <returns></returns>
         void Delete(TEntity entity);
 
         /// <summary>
-        /// Obtem uma coleção de todos TEntity no repositório
+        /// Deletes an instance of TEntity asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity to delete from repository.</param>
+        /// <returns></returns>
+        Task<int> DeleteAsync(TEntity entity);
+
+        /// <summary>
+        /// Obtains a collection of all TEntity on repository.
         /// </summary>
         /// <returns></returns>
         ICollection<TEntity> GetAll();
 
         /// <summary>
-        /// Obtem um TEntity pelo seu identificador
+        /// Obtains a collection of all TEntity on repository.
         /// </summary>
-        /// <param name="id">Chave primaria da entidade que se deseja obter do repositorio</param>
+        /// <returns></returns>
+        Task<ICollection<TEntity>> GetAllAsync();
+
+        /// <summary>
+        /// Obtains a TEntity by its identifier.
+        /// </summary>
+        /// <param name="id">Identifier from entity to obtain from repository.</param>
         /// <returns></returns>
         TEntity GetByID(TId id, params string[] includeElements);
 
         /// <summary>
-        /// Obtem um IQueryable de TEntity
+        /// Obtains a TEntity by its identifier.
+        /// </summary>
+        /// <param name="id">Identifier from entity to obtain from repository.</param>
+        /// <returns></returns>
+        Task<TEntity> GetByIDAsync(int id);
+
+        /// <summary>
+        /// Obtains an IQueryable of TEntity
         /// </summary>
         /// <returns></returns>
         IQueryable<TEntity> AsQueryable();
 
         /// <summary>
-        /// Obtem um IQueryable de TEntity
+        /// Obtains an IQueryable of TEntity
         /// </summary>
         /// <returns></returns>
         IQueryable<TEntity> AsQueryable<TEntity>(IEnumerable<System.Linq.Expressions.Expression<Func<TEntity, object>>> funcs)
             where TEntity : class;
+
+        void Save();
     }
 }

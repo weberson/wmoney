@@ -67,12 +67,33 @@ namespace WMoney.Persistence.EntityFramework.Repositories
         }
 
         /// <summary>
+        /// Add an entity to the repository
+        /// </summary>
+        /// <param name="entity"></param>
+        public async virtual Task<TEntity> AddAsync(TEntity entity, bool isNew)
+        {
+            Add(entity, isNew);
+            await Context.SaveChangesAsync();
+            return entity;
+        }
+
+        /// <summary>
         /// Deletes an entity
         /// </summary>
         /// <param name="entity"></param>
         public virtual void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
+        }
+
+        /// <summary>
+        /// Deletes an entity
+        /// </summary>
+        /// <param name="entity"></param>
+        public async virtual Task<int> DeleteAsync(TEntity entity)
+        {
+            Context.Set<TEntity>().Remove(entity);
+            return await Context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -85,11 +106,30 @@ namespace WMoney.Persistence.EntityFramework.Repositories
         }
 
         /// <summary>
+        /// Returns all entities from repository
+        /// </summary>
+        /// <returns></returns>
+        public async virtual Task<ICollection<TEntity>> GetAllAsync()
+        {
+            return await Context.Set<TEntity>().ToListAsync();
+        }
+
+        /// <summary>
         /// Obtains an entity by its id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public abstract TEntity GetByID(TId id, params string[] includeElements);
+
+        /// <summary>
+        /// Obtains an entity by its id asynchronously.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<TEntity> GetByIDAsync(int id)
+        {
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
 
         /// <summary>
         /// Returns an IQueryable typed by entity
@@ -116,6 +156,12 @@ namespace WMoney.Persistence.EntityFramework.Repositories
 
             return result;
         }
+
+        public void Save()
+        {
+            Context.SaveChanges();
+        }
+
 
         #endregion
     }
