@@ -74,9 +74,13 @@ namespace WMoney.Core.Bdd.User
                         "UserId",
                         "Email",
                         "Password"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "existent.user@mail.com",
+                        "pass"});
 #line 5
  testRunner.And("the user repository is fake containing:", ((string)(null)), table1, "And ");
-#line 7
+#line 8
  testRunner.And("the user core is ready", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -86,22 +90,43 @@ namespace WMoney.Core.Bdd.User
         public virtual void CreatesAUserWithSuccess()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creates a user with success", ((string[])(null)));
-#line 9
+#line 10
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 10
- testRunner.Given("the user has the email \"user@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
- testRunner.And("the user has the password 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("the user has the email \"user@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
- testRunner.When("the user core receives an user cration request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("the user has the password 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.Then("the result should be an user with email \"user@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("the user core receives an user cration request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.And("the result should be an user with password 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("the result should be an user with email \"user@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
+ testRunner.And("the result should be an user with password 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
  testRunner.And("the user should be saved on data context user repository", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Creates a user that already exists")]
+        public virtual void CreatesAUserThatAlreadyExists()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creates a user that already exists", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 19
+ testRunner.Given("the user has the email \"existent.user@mail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+ testRunner.And("the user has the password 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+ testRunner.When("the user core receives an user cration request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("an exception of type \"System.DuplicateWaitObjectException\" should be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

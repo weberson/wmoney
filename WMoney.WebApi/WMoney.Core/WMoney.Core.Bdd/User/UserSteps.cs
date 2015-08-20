@@ -20,6 +20,7 @@ namespace WMoney.Core.Bdd.User
         private string USER_CORE_KEY = "userCore";
         private string USER_REPOSITORY_KEY = "userRepository";
         private string RESULT_USER_KEY = "resultUser";
+        private string RESULT_EXCEPTION_KEY = "resultException";
 
 
         #region Given
@@ -35,10 +36,21 @@ namespace WMoney.Core.Bdd.User
         public void GivenTheUserRepositoryIsFakeContaining(Table table)
         {
             var userRepository = Substitute.For<IUserRepository>();
+            var users = new List<Persistence.Model.User>();
 
-            var users = new List<Persistence.Model.User>().AsQueryable();
-            userRepository.AsQueryable().Returns(new TestDbAsyncEnumerable<Persistence.Model.User>(users));
+            foreach (var item in table.Rows)
+            {
+                var user = new Persistence.Model.User
+                {
+                    UserId = item.ContainsKey("UserId") ? Int32.Parse(item["UserId"]) : 0,
+                    Email = item.ContainsKey("Email") ? item["Email"] : null,
+                    Password = item.ContainsKey("Password") ? item["Password"] : null,
+                };
 
+                users.Add(user);
+            }
+
+            userRepository.AsQueryable().Returns(new TestDbAsyncEnumerable<Persistence.Model.User>(users.AsQueryable()));
             ScenarioContext.Current.Add(USER_REPOSITORY_KEY, userRepository);
 
             var context = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
@@ -77,8 +89,15 @@ namespace WMoney.Core.Bdd.User
             var password = ScenarioContext.Current.Get<string>(PASSWORD_KEY);
             var userCore = ScenarioContext.Current.Get<IUserCore>(USER_CORE_KEY);
 
-            var result = userCore.CreateUserAsync(email, password).Result;
-            ScenarioContext.Current.Add(RESULT_USER_KEY, result);
+            try
+            {
+                var result = userCore.CreateUserAsync(email, password).Result;
+                ScenarioContext.Current.Add(RESULT_USER_KEY, result);
+            }
+            catch (Exception ex)
+            {
+                ScenarioContext.Current.Add(RESULT_EXCEPTION_KEY, ex.InnerException.GetType().FullName);
+            }
         }
         #endregion
 
@@ -105,6 +124,14 @@ namespace WMoney.Core.Bdd.User
             var dataContext = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
 
             dataContext.UserRepository.Received(1).AddAsync(Arg.Any<Persistence.Model.User>(), true);
+        }
+
+        [Then(@"an exception of type ""(.*)"" should be thrown")]
+        public void ThenAnExceptionOfTypeShouldBeThrown(string exception)
+        {
+            var resultException = ScenarioContext.Current.Get<string>(RESULT_EXCEPTION_KEY);
+
+            Assert.AreEqual(exception, resultException);
         }
 
         #endregion
