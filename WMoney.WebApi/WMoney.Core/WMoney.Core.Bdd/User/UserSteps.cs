@@ -35,6 +35,10 @@ namespace WMoney.Core.Bdd.User
         public void GivenTheUserRepositoryIsFakeContaining(Table table)
         {
             var userRepository = Substitute.For<IUserRepository>();
+
+            var users = new List<Persistence.Model.User>().AsQueryable();
+            userRepository.AsQueryable().Returns(new TestDbAsyncEnumerable<Persistence.Model.User>(users));
+
             ScenarioContext.Current.Add(USER_REPOSITORY_KEY, userRepository);
 
             var context = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
