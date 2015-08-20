@@ -33,5 +33,21 @@ namespace WMoney.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
         }
+
+        public async Task<bool> Get(string email, string password)
+        {
+            try
+            {
+                return await _userCore.CheckUserAsync(email, password);
+            }
+            catch (ArgumentException)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            catch (Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }

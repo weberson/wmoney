@@ -39,5 +39,26 @@ namespace WMoney.Core
 
             return user;
         }
+
+        public async Task<bool> CheckUserAsync(string email, string password)
+        {
+            var user = await _userRepository.AsQueryable().GetByEmail(email);
+
+            if (user != null)
+            {
+                if (user.Password == password)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("There's no user with email '{0}'", email));
+            }
+        }
     }
 }

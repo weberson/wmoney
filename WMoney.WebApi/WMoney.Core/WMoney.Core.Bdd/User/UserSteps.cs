@@ -21,6 +21,7 @@ namespace WMoney.Core.Bdd.User
         private string USER_REPOSITORY_KEY = "userRepository";
         private string RESULT_USER_KEY = "resultUser";
         private string RESULT_EXCEPTION_KEY = "resultException";
+        private string RESULT_KEY = "result";
 
 
         #region Given
@@ -99,6 +100,25 @@ namespace WMoney.Core.Bdd.User
                 ScenarioContext.Current.Add(RESULT_EXCEPTION_KEY, ex.InnerException.GetType().FullName);
             }
         }
+
+        [When(@"the user core receives an user check request")]
+        public void WhenTheUserCoreReceivesAnUserCheckRequest()
+        {
+            var email = ScenarioContext.Current.Get<string>(EMAIL_KEY);
+            var password = ScenarioContext.Current.Get<string>(PASSWORD_KEY);
+            var userCore = ScenarioContext.Current.Get<IUserCore>(USER_CORE_KEY);
+
+            try
+            {
+                var result = userCore.CheckUserAsync(email, password).Result;
+                ScenarioContext.Current.Add(RESULT_KEY, result);
+            }
+            catch (Exception ex)
+            {
+                ScenarioContext.Current.Add(RESULT_EXCEPTION_KEY, ex.InnerException.GetType().FullName);
+            }
+        }
+
         #endregion
 
         #region Then
@@ -132,6 +152,14 @@ namespace WMoney.Core.Bdd.User
             var resultException = ScenarioContext.Current.Get<string>(RESULT_EXCEPTION_KEY);
 
             Assert.AreEqual(exception, resultException);
+        }
+
+        [Then(@"the result should be ""(.*)""")]
+        public void ThenTheResultShouldBe(bool resultExpected)
+        {
+            var actualResult = ScenarioContext.Current.Get<bool>(RESULT_KEY);
+
+            Assert.AreEqual(resultExpected, actualResult);
         }
 
         #endregion
