@@ -20,7 +20,18 @@ namespace WMoney.WebApi.Controllers
 
         public async Task Post(string email, string password)
         {
-            await _userCore.CreateUserAsync(email, password);
+            try
+            {
+                await _userCore.CreateUserAsync(email, password);
+            }
+            catch (DuplicateWaitObjectException)
+            {
+                throw new HttpResponseException(HttpStatusCode.Ambiguous);
+            }
+            catch (Exception)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
         }
     }
 }
