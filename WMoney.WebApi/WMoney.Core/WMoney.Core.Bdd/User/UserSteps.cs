@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using TechTalk.SpecFlow;
 using WMoney.Persistence.EntityFramework;
 using WMoney.Persistence.Repositories;
+using WMoney.Persistence.Model;
 
 namespace WMoney.Core.Bdd.User
 {
@@ -25,7 +27,7 @@ namespace WMoney.Core.Bdd.User
         [Given(@"the data context is fake")]
         public void GivenTheDataContextIsFake()
         {
-            var dataContext = Substitute.For<WMoneyContext>();
+            var dataContext = Substitute.For<IWMoneyContext>();
             ScenarioContext.Current.Add(DATA_CONTEXT_KEY, dataContext);
         }
 
@@ -35,14 +37,16 @@ namespace WMoney.Core.Bdd.User
             var userRepository = Substitute.For<IUserRepository>();
             ScenarioContext.Current.Add(USER_REPOSITORY_KEY, userRepository);
 
-            ScenarioContext.Current.Get<WMoneyContext>(DATA_CONTEXT_KEY)
-                .UserRepository = userRepository;
+            var context = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
+            context
+                .UserRepository
+                .Returns(userRepository);
         }
 
         [Given(@"the user core is ready")]
         public void GivenTheUserCoreIsReady()
         {
-            var dataContext = ScenarioContext.Current.Get<WMoneyContext>(DATA_CONTEXT_KEY);
+            var dataContext = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
             
             var userCore = new UserCore(dataContext);
             ScenarioContext.Current.Add(USER_CORE_KEY, userCore);
@@ -75,7 +79,30 @@ namespace WMoney.Core.Bdd.User
         #endregion
 
         #region Then
-        
+        [Then(@"the result should be an user with email ""(.*)""")]
+        public void ThenTheResultShouldBeAnUserWithEmail(string email)
+        {
+            var userResult = ScenarioContext.Current.Get<WMoney.Persistence.Model.User>(RESULT_USER_KEY);
+
+            Assert.AreEqual(email, userResult.Email);
+        }
+
+        [Then(@"the result should be an user with password (.*)")]
+        public void ThenTheResultShouldBeAnUserWithPassword(string password)
+        {
+            var userResult = ScenarioContext.Current.Get<WMoney.Persistence.Model.User>(RESULT_USER_KEY);
+
+            Assert.AreEqual(password, userResult.Password);
+        }
+
+        [Then(@"the user should be saved on data context user repository")]
+        public void ThenTheUserShouldBeSavedOnDataContextUserRepository()
+        {
+            var dataContext = ScenarioContext.Current.Get<IWMoneyContext>(DATA_CONTEXT_KEY);
+
+            dataContext.UserRepository.Received(1).AddAsync(Arg.Any<Persistence.Model.User>(), true);
+        }
+
         #endregion
 
     }

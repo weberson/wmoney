@@ -28,7 +28,7 @@ namespace WMoney.WebApi.App_Start
      
         private static void InitializeContainer(Container container)
         {
-            container.RegisterWebApiRequest<WMoneyContext, WMoneyContext>();
+            container.RegisterWebApiRequest<IWMoneyContext, WMoneyContext>();
             container.RegisterWebApiRequest<IUserCore, UserCore>();
         }
     }

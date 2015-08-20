@@ -14,7 +14,7 @@ namespace WMoney.Core
     {
         IUserRepository _userRepository;
 
-        public UserCore(WMoneyContext wMoneyContext)
+        public UserCore(IWMoneyContext wMoneyContext)
         {
             _userRepository = wMoneyContext.UserRepository;
         }

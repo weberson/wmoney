@@ -10,7 +10,7 @@ using WMoney.Persistence.Repositories;
 
 namespace WMoney.Persistence.EntityFramework
 {
-    public class WMoneyContext : DbContext
+    public class WMoneyContext : DbContext, IWMoneyContext
     {
         public WMoneyContext()
             : base("WMoneyConnectionString")
@@ -20,8 +20,7 @@ namespace WMoney.Persistence.EntityFramework
 
         public IUserRepository UserRepository
         { 
-            get { return new UserRepository(this); };
-            set;
+            get { return new UserRepository(this); }
         }
 
         public DbSet<Account> Accounts { get; set; }
