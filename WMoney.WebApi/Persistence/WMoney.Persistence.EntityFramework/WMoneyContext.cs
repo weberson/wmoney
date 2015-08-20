@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WMoney.Persistence.EntityFramework.Repositories;
 using WMoney.Persistence.Model;
+using WMoney.Persistence.Repositories;
 
 namespace WMoney.Persistence.EntityFramework
 {
@@ -15,6 +17,12 @@ namespace WMoney.Persistence.EntityFramework
             {
             
             }
+
+        public IUserRepository UserRepository
+        { 
+            get { return new UserRepository(this); };
+            set;
+        }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }

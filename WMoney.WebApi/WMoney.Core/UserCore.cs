@@ -16,7 +16,7 @@ namespace WMoney.Core
 
         public UserCore(WMoneyContext wMoneyContext)
         {
-            _userRepository = new UserRepository(wMoneyContext);
+            _userRepository = wMoneyContext.UserRepository;
         }
 
         public async Task<User> CreateUserAsync(string email, string password)
