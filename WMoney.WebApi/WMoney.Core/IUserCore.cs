@@ -10,5 +10,7 @@ namespace WMoney.Core
     public interface IUserCore
     {
         Task<User> CreateUserAsync(string email, string password);
+
+        Task<bool> CheckUserAsync(string email, string password);
     }
 }

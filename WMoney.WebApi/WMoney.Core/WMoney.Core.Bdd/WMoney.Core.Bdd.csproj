@@ -57,17 +57,25 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDbAsyncQueryProvider.cs" />
+    <Compile Include="User\CheckUser.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CheckUser.feature</DependentUpon>
+    </Compile>
     <Compile Include="User\CreateUser.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreateUser.feature</DependentUpon>
     </Compile>
-    <Compile Include="User\UserCore.cs" />
     <Compile Include="User\UserSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="User\CheckUser.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CheckUser.feature.cs</LastGenOutput>
+    </None>
     <None Include="User\CreateUser.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreateUser.feature.cs</LastGenOutput>
