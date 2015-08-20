@@ -4,17 +4,24 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WMoney.Persistence.EntityFramework.Repositories;
 using WMoney.Persistence.Model;
+using WMoney.Persistence.Repositories;
 
 namespace WMoney.Persistence.EntityFramework
 {
-    public class WMoneyContext : DbContext
+    public class WMoneyContext : DbContext, IWMoneyContext
     {
         public WMoneyContext()
             : base("WMoneyConnectionString")
             {
             
             }
+
+        public IUserRepository UserRepository
+        { 
+            get { return new UserRepository(this); }
+        }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -76,6 +83,8 @@ namespace WMoney.Persistence.EntityFramework
                 .HasKey(a => a.UserId)
                 .Map(a => a.ToTable("TbUser", "dbo"));
         }
+
+
 
     }
 }
