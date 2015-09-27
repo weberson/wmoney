@@ -10,6 +10,7 @@ using WMoney.Persistence.Repositories;
 
 namespace WMoney.Persistence.EntityFramework
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class WMoneyContext : DbContext, IWMoneyContext
     {
         public WMoneyContext()

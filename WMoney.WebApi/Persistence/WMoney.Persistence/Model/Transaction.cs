@@ -13,9 +13,9 @@ namespace WMoney.Persistence.Model
 
         public int TransactionTypeId { get; set; }
 
-        public DateTimeOffset Created { get; set; }
+        public DateTime Created { get; set; }
 
-        public DateTimeOffset Date { get; set; }
+        public DateTime Date { get; set; }
 
         public int CategoryId { get; set; }
 

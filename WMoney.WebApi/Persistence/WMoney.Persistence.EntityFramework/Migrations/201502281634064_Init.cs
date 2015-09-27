@@ -25,8 +25,8 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                     {
                         TransactionId = c.Int(nullable: false, identity: true),
                         TransactionTypeId = c.Int(nullable: false),
-                        Created = c.DateTimeOffset(nullable: false, precision: 7),
-                        Date = c.DateTimeOffset(nullable: false, precision: 7),
+                        Created = c.DateTime(nullable: false),
+                        Date = c.DateTime(nullable: false),
                         CategoryId = c.Int(nullable: false),
                         AccountId = c.Int(nullable: false),
                         Value = c.Decimal(nullable: false, precision: 18, scale: 2),

@@ -10,6 +10,9 @@ namespace WMoney.Persistence.EntityFramework.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+
+            // register mysql code generator
+            SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
         protected override void Seed(WMoney.Persistence.EntityFramework.WMoneyContext context)
