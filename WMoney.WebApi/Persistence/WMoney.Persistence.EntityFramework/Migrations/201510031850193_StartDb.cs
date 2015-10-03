@@ -3,7 +3,7 @@ namespace WMoney.Persistence.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class StartDb : DbMigration
     {
         public override void Up()
         {
@@ -12,7 +12,7 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                 c => new
                     {
                         AccountId = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
                         UserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.AccountId)
@@ -25,12 +25,12 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                     {
                         TransactionId = c.Int(nullable: false, identity: true),
                         TransactionTypeId = c.Int(nullable: false),
-                        Created = c.DateTime(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        Created = c.DateTime(nullable: false, precision: 0),
+                        Date = c.DateTime(nullable: false, precision: 0),
                         CategoryId = c.Int(nullable: false),
                         AccountId = c.Int(nullable: false),
                         Value = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Description = c.String(maxLength: 200),
+                        Description = c.String(maxLength: 200, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.TransactionId)
                 .ForeignKey("dbo.TbAccount", t => t.AccountId)
@@ -45,7 +45,7 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                 c => new
                     {
                         CategoryId = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
                         UserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.CategoryId)
@@ -57,8 +57,8 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
-                        Email = c.String(maxLength: 50),
-                        Password = c.String(maxLength: 20),
+                        Email = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Password = c.String(maxLength: 20, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.UserId);
             
@@ -67,7 +67,7 @@ namespace WMoney.Persistence.EntityFramework.Migrations
                 c => new
                     {
                         TransactionTypeId = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.TransactionTypeId);
             
